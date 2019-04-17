@@ -1,0 +1,23 @@
+@charset "utf-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+.body{
+    width: 960px;
+    margin:0 auto;
+    text-align: center;
+}
+.content{
+    widows: 550px;
+    text-align: center;
+}
+.cover{
+    background: url("/vegechecker/controllers/static/vege.jpg");
+    background-size:cover;
+    overflow: hidden;
+}

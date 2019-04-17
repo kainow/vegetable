@@ -1,0 +1,42 @@
+<!----- ブロックコンテントの中身 ----->
+<!-- layout.htmlを拡張することが書かれている -->
+{% extends "layout.html" %}
+<!-- エンドブロックの間までがlayout.htmlに埋め込まれることになる -->
+{% block content %}
+
+<div class="text-center">
+  <!-- 画像ファイルをサーバーに送る -->
+<!-- ポストメソッドを使ってapiをたたいている -->
+<form method="post" action="/api/v1/send" enctype="multipart/form-data">
+<!-- 画像ファイルを選択するボタン -->
+  <input type="file" id="img_file" name="img_file" class="btn page-link text-dark d-inline-block">
+  <!-- サーバーに送信するボタン -->
+  <input type="submit" value="ファイルを送信" class="btn btn-success">
+</form>
+</div>
+<!-- サーバーに送信した画像を表示するための場所 -->
+<!-- サーバに画像が送信されるとimg_urlに画像ファイルのパスがありif文の中が実行される -->
+  {% if img_url %}
+<div>
+    <!-- img_urlに書いてあるファイルをそのまま表示している -->
+<img src="{{ img_url }}" class="rounded" width="500">
+</div>
+  {% endif %}
+  <br>
+  <!-- 画像が送信されるとfilenameにファイルの名前だけが来て下記が実行されて次のフォームがページに現れる -->
+  {% if filename %}
+  <div class="text-center">
+    <!-- 実際にディープラーニングで画像を識別させるボタンを設定。actionのapiをたたく。ファイルネームが展開される -->
+<form method="post" action="/api/v1/check/{{ filename }}">
+  <input type="submit" value="野菜認識開始" class="btn btn-warning btn-lg">
+</form>
+</div>
+  {% endif %}
+  <!-- VegeCheck!ボタンを押すとvege_typeというところに野菜の種類が返ってくる -->
+  {% if vege_type %}
+<div class="btn btn-danger  btn-lg rounded-0">
+    <!-- vege_typeを展開して野菜の種類を表示する -->
+{{ vege_type }}
+</div>
+  {% endif %}
+{% endblock %}
